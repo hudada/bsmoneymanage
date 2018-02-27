@@ -4,203 +4,114 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/tv_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/the_space"
+            android:text="当前余额："
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size03" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_01"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="1000.00"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="元"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
+
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <TextView
+            android:id="@+id/tv_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/the_space"
+            android:text="账户详情"
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size03" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="right"
+            android:layout_toRightOf="@+id/tv_02"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/the_space"
+                android:text="管理账户>>"
+                android:textColor="@color/blue_bg"
+                android:textSize="@dimen/text_size02" />
+
+        </LinearLayout>
+    </RelativeLayout>
     <TextView
-        android:id="@+id/tv_username"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:hint="尚未登陆"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="38sp"
-        android:textStyle="bold" />
+        android:layout_height="1dp"
+        android:background="@color/blue_bg"
+        android:layout_margin="5dp"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sl_list01"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
-        android:id="@+id/tv_edit_pass"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:text="( 点击修改密码 )"
-        android:visibility="gone"
-        android:layout_marginTop="5dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/blue_bg"
-        android:textSize="14sp" />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/the_space"
-            android:text="账    号："
-            android:textColor="@color/text_3"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/the_space"
-            android:gravity="right"
-            android:hint="尚未登陆"
-            android:textColor="@color/text_6"
-            android:textSize="18sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/the_space"
-            android:text="手机号："
-            android:textColor="@color/text_3"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_tel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/the_space"
-            android:gravity="right"
-            android:hint="尚未登陆"
-            android:textColor="@color/text_6"
-            android:textSize="18sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/the_space"
-            android:text="性    别："
-            android:textColor="@color/text_3"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_sex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/the_space"
-            android:gravity="right"
-            android:hint="尚未登陆"
-            android:textColor="@color/text_6"
-            android:textSize="18sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/the_space"
-            android:text="余    额："
-            android:textColor="@color/text_3"
-            android:textSize="18sp" />
-
-
-        <TextView
-            android:id="@+id/tv_money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/the_space"
-            android:gravity="right"
-            android:hint="0.0元"
-            android:textColor="@color/text_6"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/tv_money"
-            android:paddingLeft="10dp"
-            android:paddingRight="6dp"
-            android:text="( 点击充值 )"
-            android:visibility="gone"
-            android:textColor="@color/blue_bg"
-            android:textSize="14sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/the_space"
-            android:text="门牌号："
-            android:textColor="@color/text_3"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_men"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/the_space"
-            android:gravity="right"
-            android:hint="尚未登陆"
-            android:textColor="@color/text_6"
-            android:textSize="18sp" />
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/btn_btn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="@dimen/the_space"
-        android:layout_marginRight="@dimen/the_space"
-        android:layout_marginTop="50dp"
+        android:layout_height="1dp"
         android:background="@color/blue_bg"
-        android:text="登      陆"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
+        android:layout_margin="5dp"/>
     <Button
-        android:id="@+id/btn_edit"
+        android:id="@+id/btn_add"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="@dimen/the_space"
-        android:layout_marginRight="@dimen/the_space"
-        android:layout_marginTop="15dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
         android:background="@color/blue_bg"
-        android:text="修改用户信息"
+        android:text="收支类型编辑"
         android:textColor="@color/white"
-        android:visibility="gone"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size03"
         android:textStyle="bold" />
 </LinearLayout>

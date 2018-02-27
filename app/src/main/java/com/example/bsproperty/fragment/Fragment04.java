@@ -23,7 +23,7 @@ public class Fragment04 extends BaseFragment {
 
     @Override
     public int getRootViewId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_04;
     }
 
 }

@@ -6,20 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.view.View;
 
 import com.example.bsproperty.MyApplication;
 import com.example.bsproperty.R;
-import com.example.bsproperty.fragment.ForumFragment;
 import com.example.bsproperty.fragment.Fragment02;
 import com.example.bsproperty.fragment.Fragment03;
 import com.example.bsproperty.fragment.Fragment04;
 import com.example.bsproperty.fragment.HomeFragment;
-import com.example.bsproperty.fragment.MineFragment;
-import com.example.bsproperty.fragment.PriceFragment;
 import com.example.bsproperty.utils.SpUtils;
-import com.example.bsproperty.view.ModifyItemDialog;
 
 import java.util.ArrayList;
 
