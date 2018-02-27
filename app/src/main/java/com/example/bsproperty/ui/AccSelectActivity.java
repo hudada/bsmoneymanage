@@ -26,35 +26,23 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class TypeSelectActivity extends BaseActivity {
+public class AccSelectActivity extends BaseActivity {
 
     @BindView(R.id.btn_back)
     Button btnBack;
-    @BindView(R.id.btn_right)
-    Button btnRight;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.sl_list)
     SwipeRefreshLayout slList;
-    @BindView(R.id.rb_01)
-    RadioButton rb01;
-    @BindView(R.id.rb_02)
-    RadioButton rb02;
-    private ArrayList<String> outtypes=new ArrayList<>();
-    private ArrayList<String> intypes=new ArrayList<>();
+    private ArrayList<String> accs =new ArrayList<>();
     private MyAdapter adapter;
-    private boolean flag;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        tvTitle.setText("选择收支类型");
-        flag=true;
-        rb01.setChecked(true);
-        rb02.setChecked(false);
-        outtypes = MyApplication.getInstance().getOuttypes();
-        intypes= MyApplication.getInstance().getIntypes();
+        tvTitle.setText("选择使用的账户");
+        accs= MyApplication.getInstance().getAccs();
         slList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -63,15 +51,13 @@ public class TypeSelectActivity extends BaseActivity {
             }
         });
         rvList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MyAdapter(this, R.layout.item_home_type, outtypes);
+        adapter = new MyAdapter(this, R.layout.item_home_type, accs);
         adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, Object item, int position) {
                 Intent intent=new Intent();
-                intent.putExtra("flag",flag);
                 intent.putExtra("pos",position);
                 setResult(RESULT_OK,intent);
-                Log.e("test",flag+"+++"+position);
                 finish();
             }
         });
@@ -81,7 +67,7 @@ public class TypeSelectActivity extends BaseActivity {
 
     @Override
     protected int getRootViewId() {
-        return R.layout.activity_home_type_selectm;
+        return R.layout.activity_acc_select;
     }
 
     @Override
@@ -96,14 +82,6 @@ public class TypeSelectActivity extends BaseActivity {
             case R.id.btn_back:
                 finish();
                 setResult(RESULT_CANCELED);
-                break;
-            case R.id.rb_01:
-                flag=true;
-                adapter.notifyDataSetChanged(outtypes);
-                break;
-            case R.id.rb_02:
-                flag=false;
-                adapter.notifyDataSetChanged(intypes);
                 break;
         }
     }

@@ -20,12 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.EditUserActivity" />
         <activity android:name=".ui.TypeSelectActivity" />
-        <activity android:name=".ui.EditPassActivity" />
-        <activity android:name=".ui.SendForumActivity"></activity>
+        <activity android:name=".ui.AccSelectActivity"></activity>
     </application>
 
 </manifest>
