@@ -23,7 +23,7 @@
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.EditUserActivity" />
-        <activity android:name=".ui.ForumDetailActivity" />
+        <activity android:name=".ui.TypeSelectActivity" />
         <activity android:name=".ui.EditPassActivity" />
         <activity android:name=".ui.SendForumActivity"></activity>
     </application>
