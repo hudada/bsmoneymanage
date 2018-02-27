@@ -2,18 +2,237 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg">
+    android:background="@color/main_bg"
+    android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/sl_list"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_marginTop="30dp"
+        android:layout_height="50dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        <TextView
+            android:id="@+id/tv_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/the_space"
+            android:text="收支类型："
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size03" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_01"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="吃饭"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="▼"
+                android:textColor="@color/text_9"
+                android:textSize="@dimen/text_size01" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/the_space"
+            android:text="金         额："
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size03" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_02"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/tv_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="0.00"
+                android:background="@null"
+                android:inputType="numberDecimal"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="元"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/the_space"
+            android:text="收支账户："
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size03" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_03"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="支付宝"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="▼"
+                android:textColor="@color/text_9"
+                android:textSize="@dimen/text_size01" />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/the_space"
+            android:text="时         间："
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size03" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_04"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="2018-12-12 16:40:22"
+                android:background="@null"
+                android:inputType="numberDecimal"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="▼"
+                android:textColor="@color/text_9"
+                android:textSize="@dimen/text_size01" />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/the_space"
+            android:text="地         点："
+            android:textColor="@color/text_3"
+            android:textSize="@dimen/text_size03" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_05"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="四川省成都市xxx"
+                android:background="@null"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/the_space"
+        android:layout_marginRight="@dimen/the_space"
+        android:layout_marginTop="50dp"
+        android:background="@color/blue_bg"
+        android:text="记    一    笔"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/the_space"
+        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_tozhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="从支付宝获取>>"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/the_space"
+                android:background="@null"
+                android:textColor="@color/blue_bg"
+                android:textSize="@dimen/text_size02" />
+    </RelativeLayout>
 </LinearLayout>

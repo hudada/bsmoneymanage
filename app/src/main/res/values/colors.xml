@@ -13,5 +13,6 @@
     <color name="text_9">#999999</color>
     <color name="text_11">#3b999999</color>
     <color name="text_12">#e2999999</color>
-    <color name="blue_bg">#4f79b0</color>
+    <color name="blue_bg">#e89c23</color>
+    <color name="redd">#e83723</color>
 </resources>

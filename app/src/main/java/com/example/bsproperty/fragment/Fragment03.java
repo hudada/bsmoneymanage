@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
  * Created by yezi on 2018/1/27.
  */
 
-public class HomeFragment extends BaseFragment {
+public class Fragment03 extends BaseFragment {
     SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
@@ -23,7 +23,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public int getRootViewId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_03;
     }
 
 }

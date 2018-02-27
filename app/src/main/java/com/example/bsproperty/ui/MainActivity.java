@@ -12,6 +12,9 @@ import android.view.View;
 import com.example.bsproperty.MyApplication;
 import com.example.bsproperty.R;
 import com.example.bsproperty.fragment.ForumFragment;
+import com.example.bsproperty.fragment.Fragment02;
+import com.example.bsproperty.fragment.Fragment03;
+import com.example.bsproperty.fragment.Fragment04;
 import com.example.bsproperty.fragment.HomeFragment;
 import com.example.bsproperty.fragment.MineFragment;
 import com.example.bsproperty.fragment.PriceFragment;
@@ -32,27 +35,27 @@ public class MainActivity extends BaseActivity {
 
     private long backTime;
     private HomeFragment homeFragment;
-    private PriceFragment priceFragment;
-    private ForumFragment forumFragment;
-    private MineFragment mineFragment;
+    private Fragment02 fragment02;
+    private Fragment03 fragment03;
+    private Fragment04 fragment04;
     private ArrayList<Fragment> fragments;
     private MyFragmentPagerAdapter adapter;
     private String[] tabs = new String[]{
-            "公告", "缴费", "论坛", "我的"
+            "首  页", "预  算", "明细查询", "设  置"
     };
 
     @Override
     protected void initView(Bundle savedInstanceState) {
 
         homeFragment = new HomeFragment();
-        priceFragment = new PriceFragment();
-        forumFragment = new ForumFragment();
-        mineFragment = new MineFragment();
+        fragment02 = new Fragment02();
+        fragment03 = new Fragment03();
+        fragment04 = new Fragment04();
         fragments = new ArrayList<>();
         fragments.add(homeFragment);
-        fragments.add(priceFragment);
-        fragments.add(forumFragment);
-        fragments.add(mineFragment);
+        fragments.add(fragment02);
+        fragments.add(fragment03);
+        fragments.add(fragment04);
 
         adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         vpContent.setAdapter(adapter);
