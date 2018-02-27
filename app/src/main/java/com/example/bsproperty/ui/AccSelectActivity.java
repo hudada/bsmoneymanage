@@ -76,7 +76,7 @@ public class AccSelectActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.btn_back,R.id.rb_01,R.id.rb_02})
+    @OnClick({R.id.btn_back})
     public void onViewClicked(View view) {
         switch (view.getId()){
             case R.id.btn_back:
@@ -84,13 +84,6 @@ public class AccSelectActivity extends BaseActivity {
                 setResult(RESULT_CANCELED);
                 break;
         }
-    }
-
-    @Override
-    public void finish() {
-        Intent intent = new Intent();
-        setResult(RESULT_OK,intent);
-        super.finish();
     }
 
     private class MyAdapter extends BaseAdapter<String>{

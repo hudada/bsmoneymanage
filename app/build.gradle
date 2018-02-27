@@ -42,4 +42,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     compile 'org.greenrobot:greendao:3.2.2' // add library
+    compile 'com.jzxiang.pickerview:TimePickerDialog:0.9.9'
 }

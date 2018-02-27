@@ -94,8 +94,8 @@ public class TypeSelectActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()){
             case R.id.btn_back:
-                finish();
                 setResult(RESULT_CANCELED);
+                finish();
                 break;
             case R.id.rb_01:
                 flag=true;
@@ -106,13 +106,6 @@ public class TypeSelectActivity extends BaseActivity {
                 adapter.notifyDataSetChanged(intypes);
                 break;
         }
-    }
-
-    @Override
-    public void finish() {
-        Intent intent = new Intent();
-        setResult(RESULT_OK,intent);
-        super.finish();
     }
 
     private class MyAdapter extends BaseAdapter<String>{
