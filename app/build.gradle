@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     compileSdkVersion 23
@@ -24,6 +25,11 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 1
+    targetGenDir 'src/main/java'
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.4.0'
@@ -34,4 +40,5 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    compile 'org.greenrobot:greendao:3.2.2' // add library
 }

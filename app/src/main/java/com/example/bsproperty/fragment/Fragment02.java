@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.bsproperty.R;
+import com.example.bsproperty.bean.Test;
+import com.example.bsproperty.utils.TestDaoUtils;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -19,6 +21,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -27,18 +30,21 @@ import butterknife.BindView;
  */
 
 public class Fragment02 extends BaseFragment {
-    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @BindView(R.id.pc_chart)
     PieChart mChart;
 
-    protected String[] mParties = new String[] {
+    protected String[] mParties = new String[]{
             "给美特买吃的", "给喔特买本本", "吃的", "喝的"
     };
+    TestDaoUtils testDaoUtils;
 
     @Override
     protected void loadData() {
         setData();
+
+        testDaoUtils = new TestDaoUtils(getActivity());
     }
 
     @Override
@@ -74,6 +80,18 @@ public class Fragment02 extends BaseFragment {
                 Log.i("VAL SELECTED",
                         "Value: " + e.getY() + ", index: " + h.getX()
                                 + ", DataSet index: " + h.getDataSetIndex());
+                switch ((int) h.getX()) {
+                    case 0:
+                        testDaoUtils.insertTest(new Test(null, "Google",
+                                "http://7xi8d6.48096_n.jpg"));
+                        break;
+                    case 1:
+                        List<Test> testList = testDaoUtils.queryAllTest();
+                        for (Test test : testList) {
+                            Log.i("hdd", test.toString());
+                        }
+                        break;
+                }
             }
 
             @Override
