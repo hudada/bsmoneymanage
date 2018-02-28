@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.bsproperty.MyApplication;
 import com.example.bsproperty.R;
 import com.example.bsproperty.adapter.BaseAdapter;
+import com.example.bsproperty.bean.AccBean;
 import com.example.bsproperty.bean.ForumBean;
 import com.example.bsproperty.bean.ReplayBean;
 
@@ -36,7 +37,7 @@ public class AccSelectActivity extends BaseActivity {
     RecyclerView rvList;
     @BindView(R.id.sl_list)
     SwipeRefreshLayout slList;
-    private ArrayList<String> accs =new ArrayList<>();
+    private ArrayList<AccBean> accs =new ArrayList<>();
     private MyAdapter adapter;
 
     @Override
@@ -86,15 +87,15 @@ public class AccSelectActivity extends BaseActivity {
         }
     }
 
-    private class MyAdapter extends BaseAdapter<String>{
+    private class MyAdapter extends BaseAdapter<AccBean>{
 
-        public MyAdapter(Context context, int layoutId, ArrayList<String> data) {
+        public MyAdapter(Context context, int layoutId, ArrayList<AccBean> data) {
             super(context, layoutId, data);
         }
 
         @Override
-        public void initItemView(BaseViewHolder holder, String type, int position) {
-            holder.setText(R.id.tv_01,type);
+        public void initItemView(BaseViewHolder holder, AccBean type, int position) {
+            holder.setText(R.id.tv_01,type.getAccount());
         }
     }
 }

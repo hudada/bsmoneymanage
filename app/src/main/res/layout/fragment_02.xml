@@ -6,8 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp">
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/tv_01"
@@ -56,7 +56,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="30dp">
 
         <TextView
             android:id="@+id/tv_02"
@@ -97,12 +97,12 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_load"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@color/blue_bg"
         android:text="生成统计图"
         android:textColor="@color/white"
@@ -112,29 +112,85 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/the_space"
+        android:layout_marginTop="5dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/rb_01"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/the_space"
-            android:checked="true"
-            android:gravity="center_vertical"
-            android:text="按时间统计"
-            android:textColor="@color/text_6"
-            android:textSize="16sp" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/rb_02"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/the_space"
+                android:checked="true"
+                android:gravity="center_vertical"
+                android:text="按种类生成："
+                android:textColor="@color/text_6"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rb_02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/the_space"
+                android:checked="true"
+                android:gravity="center_vertical"
+                android:text="支出"
+                android:textColor="@color/text_6"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rb_03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/the_space"
+                android:gravity="center_vertical"
+                android:text="收入"
+                android:textColor="@color/text_6"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="按类型统计"
-            android:textColor="@color/text_6"
-            android:textSize="16sp" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/the_space"
+                android:checked="true"
+                android:gravity="center_vertical"
+                android:text="按时间生成："
+                android:textColor="@color/text_6"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rb_01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/the_space"
+                android:checked="true"
+                android:gravity="center_vertical"
+                android:text="支出"
+                android:textColor="@color/text_6"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rb_04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/the_space"
+                android:gravity="center_vertical"
+                android:text="收入"
+                android:textColor="@color/text_6"
+                android:textSize="14sp" />
+        </LinearLayout>
     </RadioGroup>
 
     <com.github.mikephil.charting.charts.PieChart

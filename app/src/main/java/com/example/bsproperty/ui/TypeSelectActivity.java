@@ -18,6 +18,7 @@ import com.example.bsproperty.R;
 import com.example.bsproperty.adapter.BaseAdapter;
 import com.example.bsproperty.bean.ForumBean;
 import com.example.bsproperty.bean.ReplayBean;
+import com.example.bsproperty.bean.TypeBean;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,8 +43,8 @@ public class TypeSelectActivity extends BaseActivity {
     RadioButton rb01;
     @BindView(R.id.rb_02)
     RadioButton rb02;
-    private ArrayList<String> outtypes=new ArrayList<>();
-    private ArrayList<String> intypes=new ArrayList<>();
+    private ArrayList<TypeBean> outtypes=new ArrayList<>();
+    private ArrayList<TypeBean> intypes=new ArrayList<>();
     private MyAdapter adapter;
     private boolean flag;
 
@@ -108,15 +109,15 @@ public class TypeSelectActivity extends BaseActivity {
         }
     }
 
-    private class MyAdapter extends BaseAdapter<String>{
+    private class MyAdapter extends BaseAdapter<TypeBean>{
 
-        public MyAdapter(Context context, int layoutId, ArrayList<String> data) {
+        public MyAdapter(Context context, int layoutId, ArrayList<TypeBean> data) {
             super(context, layoutId, data);
         }
 
         @Override
-        public void initItemView(BaseViewHolder holder, String type, int position) {
-            holder.setText(R.id.tv_01,type);
+        public void initItemView(BaseViewHolder holder, TypeBean type, int position) {
+            holder.setText(R.id.tv_01,type.getType());
         }
     }
 }

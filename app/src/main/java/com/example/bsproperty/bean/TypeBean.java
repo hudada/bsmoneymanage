@@ -25,6 +25,7 @@ public class TypeBean {
     @Generated(hash = 119682038)
     public TypeBean() {
     }
+
     public Long getId() {
         return this.id;
     }

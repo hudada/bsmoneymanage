@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,12 +12,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.bsproperty.MyApplication;
 import com.example.bsproperty.R;
+import com.example.bsproperty.bean.AccBean;
+import com.example.bsproperty.bean.NewBean;
+import com.example.bsproperty.bean.TypeBean;
 import com.example.bsproperty.ui.AccSelectActivity;
 import com.example.bsproperty.ui.TypeSelectActivity;
+import com.example.bsproperty.utils.NewBeanDaoUtils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,9 +57,11 @@ public class HomeFragment extends BaseFragment {
     Button btnAdd;
     @BindView(R.id.tv_tozhi)
     TextView tvTozhi;
-    private ArrayList<String> outtypes = new ArrayList<>();
-    private ArrayList<String> intypes = new ArrayList<>();
-    private ArrayList<String> accs = new ArrayList<>();
+    private ArrayList<TypeBean> outtypes = new ArrayList<>();
+    private ArrayList<TypeBean> intypes = new ArrayList<>();
+    private ArrayList<AccBean> accs = new ArrayList<>();
+    private TypeBean selectType;
+    private AccBean selectAcc;
 
 
     @Override
@@ -63,10 +72,20 @@ public class HomeFragment extends BaseFragment {
         String[] time = format.format(new Date()).split(" ");
         tvDate.setText(time[0]);
         tvTime.setText(time[1]);
-        tvType.setText("支出-" + outtypes.get(0));
-        //收入颜色 0xFFDE3E2C
-        tvType.setTextColor(0xFF68CF6A);
-        tvAccount.setText(accs.get(0));
+        if (outtypes.size() > 0) {
+            tvType.setText("支出-" + outtypes.get(0).getType());
+            //收入颜色 0xFFDE3E2C
+            tvType.setTextColor(0xFF68CF6A);
+            selectType = outtypes.get(0);
+        } else {
+            tvType.setText("暂无分类");
+        }
+        if (accs.size() > 0) {
+            tvAccount.setText(accs.get(0).getAccount());
+            selectAcc = accs.get(0);
+        } else {
+            tvAccount.setText("暂无账户");
+        }
     }
 
     @Override
@@ -97,14 +116,14 @@ public class HomeFragment extends BaseFragment {
 
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        if (monthOfYear+1 < 10&& dayOfMonth<10) {
-                            tvDate.setText(year + "-0" + (monthOfYear+1) + "-0" + dayOfMonth);
-                        }else if (monthOfYear+1 >= 10&& dayOfMonth<10){
-                            tvDate.setText(year + "-" + (monthOfYear+1) + "-0" + dayOfMonth);
-                        }else if(monthOfYear+1 < 10 && dayOfMonth>=10){
-                            tvDate.setText(year + "-0" + (monthOfYear+1) + "-" + dayOfMonth);
-                        }else {
-                            tvDate.setText(year + "-" + (monthOfYear+1) + "-" + dayOfMonth);
+                        if (monthOfYear + 1 < 10 && dayOfMonth < 10) {
+                            tvDate.setText(year + "-0" + (monthOfYear + 1) + "-0" + dayOfMonth);
+                        } else if (monthOfYear + 1 >= 10 && dayOfMonth < 10) {
+                            tvDate.setText(year + "-" + (monthOfYear + 1) + "-0" + dayOfMonth);
+                        } else if (monthOfYear + 1 < 10 && dayOfMonth >= 10) {
+                            tvDate.setText(year + "-0" + (monthOfYear + 1) + "-" + dayOfMonth);
+                        } else {
+                            tvDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                         }
                     }
                 }, year, monthOfYear, dayOfMonth);
@@ -117,13 +136,13 @@ public class HomeFragment extends BaseFragment {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, new OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        if (hourOfDay<10&&minute<10){
-                        tvTime.setText("0"+hourOfDay + ":0" + minute + ":00");
-                        }else if (hourOfDay>=10&&minute<10){
+                        if (hourOfDay < 10 && minute < 10) {
+                            tvTime.setText("0" + hourOfDay + ":0" + minute + ":00");
+                        } else if (hourOfDay >= 10 && minute < 10) {
                             tvTime.setText(hourOfDay + ":0" + minute + ":00");
-                        }else if (hourOfDay<10&&minute>=10){
-                            tvTime.setText("0"+hourOfDay + ":" + minute + ":00");
-                        }else{
+                        } else if (hourOfDay < 10 && minute >= 10) {
+                            tvTime.setText("0" + hourOfDay + ":" + minute + ":00");
+                        } else {
                             tvTime.setText(hourOfDay + ":" + minute + ":00");
                         }
                     }
@@ -131,8 +150,40 @@ public class HomeFragment extends BaseFragment {
                 timePickerDialog.show();
                 break;
             case R.id.btn_add:
+                if (TextUtils.isEmpty(tvValue.getText())) {
+                    Toast.makeText(mContext, "请输入正确金额！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(tvAddress.getText())) {
+                    Toast.makeText(mContext, "地址不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                NewBean newBean = new NewBean();
+                newBean.setAccId(Long.parseLong(selectAcc.getId().toString()));
+                newBean.setAddress(tvAddress.getText().toString());
+                newBean.setMoney(Double.parseDouble(tvValue.getText().toString()));
+                newBean.setTypeId(Long.parseLong(selectType.getId().toString()));
+                String time = tvDate.getText().toString() + " " + tvTime.getText().toString();
+                Log.e("test", time);
+                Date d = new Date();
+                try {
+                    d = format.parse(time);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                newBean.setTime(d.getTime());
+                NewBeanDaoUtils newDao = new NewBeanDaoUtils(mContext);
+                boolean suc = newDao.insert(newBean);
+                if (suc) {
+                    tvAddress.setText("");
+                    tvValue.setText("");
+                    Toast.makeText(mContext, "添加成功！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "添加失败，请重试！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.tv_tozhi:
+                //TODO 支付宝同步
                 break;
         }
     }
@@ -145,16 +196,19 @@ public class HomeFragment extends BaseFragment {
                     boolean flag = data.getBooleanExtra("flag", false);
                     int pos = data.getIntExtra("pos", 0);
                     if (flag) {
-                        tvType.setText("支出-" + outtypes.get(pos));
+                        tvType.setText("支出-" + outtypes.get(pos).getType());
                         tvType.setTextColor(0xFF68CF6A);
+                        selectType = outtypes.get(pos);
                     } else {
-                        tvType.setText("收入-" + intypes.get(pos));
+                        tvType.setText("收入-" + intypes.get(pos).getType());
                         tvType.setTextColor(0xFFDE3E2C);
+                        selectType = intypes.get(pos);
                     }
                     break;
                 case 109:
                     int accpos = data.getIntExtra("pos", 0);
-                    tvAccount.setText(accs.get(accpos));
+                    tvAccount.setText(accs.get(accpos).getAccount());
+                    selectAcc = accs.get(accpos);
                     break;
             }
         }

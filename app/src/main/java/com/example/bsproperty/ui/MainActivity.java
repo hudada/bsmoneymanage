@@ -72,7 +72,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        MyApplication.getInstance().setUserBean(SpUtils.getUserBean(this));
     }
 
     @Override
