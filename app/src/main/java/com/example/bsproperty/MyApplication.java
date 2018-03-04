@@ -31,6 +31,7 @@ public class MyApplication extends Application {
     private static ArrayList<TypeBean> outtypes = new ArrayList<>();
     private static ArrayList<TypeBean> intypes = new ArrayList<>();
     private static ArrayList<AccBean> accs = new ArrayList<>();
+    private static ArrayList<String> numList = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -78,6 +79,9 @@ public class MyApplication extends Application {
     }
 
     public void initData() {
+        numList.add("106575170001");
+        numList.add("106980095188");
+        numList.add("+8618782918171");
         if (SpUtils.getIsFirst(this)) {
             TypeBeanDaoUtils typeDao = new TypeBeanDaoUtils(this);
             TypeBean t1 = new TypeBean();
@@ -104,6 +108,10 @@ public class MyApplication extends Application {
             t6.setFlag(1);
             t6.setType("兼职");
             typeDao.insert(t6);
+            TypeBean t7 = new TypeBean();
+            t7.setFlag(0);
+            t7.setType("支付宝");
+            typeDao.insert(t7);
 
             AccBeanDaoUtils accDao = new AccBeanDaoUtils(this);
             AccBean a1 = new AccBean();
@@ -144,6 +152,10 @@ public class MyApplication extends Application {
             accs.add(t);
 
         }
+    }
+
+    public ArrayList<String> getNumList() {
+        return numList;
     }
 }
 
