@@ -109,7 +109,7 @@
         android:textSize="@dimen/text_size03"
         android:textStyle="bold" />
 
-    <RadioGroup
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -126,25 +126,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/the_space"
-                android:checked="true"
                 android:gravity="center_vertical"
                 android:text="按种类生成："
                 android:textColor="@color/text_6"
                 android:textSize="14sp" />
 
             <RadioButton
-                android:id="@+id/rb_02"
+                android:id="@+id/rb_00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/the_space"
-                android:checked="true"
                 android:gravity="center_vertical"
                 android:text="支出"
+
                 android:textColor="@color/text_6"
                 android:textSize="14sp" />
 
             <RadioButton
-                android:id="@+id/rb_03"
+                android:id="@+id/rb_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/the_space"
@@ -171,18 +170,17 @@
                 android:textSize="14sp" />
 
             <RadioButton
-                android:id="@+id/rb_01"
+                android:id="@+id/rb_02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/the_space"
-                android:checked="true"
                 android:gravity="center_vertical"
                 android:text="支出"
                 android:textColor="@color/text_6"
                 android:textSize="14sp" />
 
             <RadioButton
-                android:id="@+id/rb_04"
+                android:id="@+id/rb_03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/the_space"
@@ -191,7 +189,7 @@
                 android:textColor="@color/text_6"
                 android:textSize="14sp" />
         </LinearLayout>
-    </RadioGroup>
+    </LinearLayout>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pc_chart"

@@ -124,6 +124,8 @@ public class MyApplication extends Application {
 
     public void getTypeList() {
         TypeBeanDaoUtils typeDao = new TypeBeanDaoUtils(this);
+        outtypes=new ArrayList<>();
+        intypes=new ArrayList<>();
         List<TypeBean> typeAll = typeDao.queryAll();
         for (TypeBean t : typeAll) {
             if (t.getFlag() == 0) {
@@ -136,6 +138,7 @@ public class MyApplication extends Application {
 
     public void getAccList() {
         AccBeanDaoUtils accDao = new AccBeanDaoUtils(this);
+        accs=new ArrayList<>();
         List<AccBean> typeAll = accDao.queryAll();
         for (AccBean t : typeAll) {
             accs.add(t);

@@ -157,14 +157,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/the_space"
+                android:layout_marginLeft="8dp"
                 android:text="2018-12-12"
                 android:textColor="@color/text_6"
                 android:textSize="@dimen/text_size03" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/the_space"
+                android:layout_marginLeft="8dp"
                 android:text="▼"
                 android:textColor="@color/text_9"
                 android:textSize="@dimen/text_size01" />
@@ -173,7 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/the_space"
+                android:layout_marginLeft="8dp"
                 android:text="16:40:22"
                 android:textColor="@color/text_6"
                 android:textSize="@dimen/text_size02" />
@@ -181,7 +181,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/the_space"
+                android:layout_marginLeft="8dp"
                 android:text="▼"
                 android:textColor="@color/text_9"
                 android:textSize="@dimen/text_size01" />

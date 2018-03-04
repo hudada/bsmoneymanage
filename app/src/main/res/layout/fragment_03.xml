@@ -13,7 +13,7 @@
         android:layout_marginTop="20dp"
         android:text="查询条件："
         android:textColor="@color/text_3"
-        android:textSize="@dimen/text_size03" />
+        android:textSize="@dimen/text_size02" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,31 +30,86 @@
             android:textSize="@dimen/text_size02" />
 
         <LinearLayout
+            android:id="@+id/ln_01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tv_01"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/the_space"
-                android:text="不限"
-                android:textColor="@color/text_6"
-                android:textSize="@dimen/text_size02" />
-
-            <TextView
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/the_space"
-                android:text="▼"
-                android:textColor="@color/text_9"
-                android:textSize="@dimen/text_size01" />
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_time_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:checked="true"
+                    android:text="不限"
+                    android:textColor="@color/text_6"
+                    android:textSize="@dimen/text_size01" />
+
+                <RadioButton
+                    android:id="@+id/rb_time_02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="区间"
+                    android:textColor="@color/text_6"
+                    android:textSize="@dimen/text_size01" />
+            </RadioGroup>
         </LinearLayout>
+
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ln_02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/ln_01"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/the_space"
+            android:text=">>请选择："
+            android:textColor="@color/text_9"
+            android:textSize="@dimen/text_size01" />
+
+        <TextView
+            android:id="@+id/tv_date01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/the_space"
+            android:text="2018-01-01"
+            android:textColor="@color/blue_bg"
+            android:textSize="@dimen/text_size01" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  至  "
+            android:textColor="@color/text_9"
+            android:textSize="@dimen/text_size01" />
+
+        <TextView
+            android:id="@+id/tv_date02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="2018-12-31"
+            android:textColor="@color/blue_bg"
+            android:textSize="@dimen/text_size01" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -88,12 +143,21 @@
                 android:textSize="@dimen/text_size02" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/the_space"
                 android:text="▼"
                 android:textColor="@color/text_9"
-                android:textSize="@dimen/text_size01" />
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_typemore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="更多>>"
+                android:textColor="@color/blue_bg"
+                android:textSize="@dimen/text_size02" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -103,7 +167,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@color/blue_bg"
         android:text="开始查询"
         android:textColor="@color/white"
@@ -115,14 +179,19 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/the_space"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="查询结果："
         android:textColor="@color/text_3"
-        android:textSize="@dimen/text_size03" />
+        android:textSize="@dimen/text_size02" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/text_9" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sl_list"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

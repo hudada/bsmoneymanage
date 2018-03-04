@@ -21,7 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.TypeSelectActivity" />
-        <activity android:name=".ui.AccSelectActivity"></activity>
+        <activity android:name=".ui.AccSelectActivity"/>
+        <activity android:name=".ui.TypeEditListActivity"/>
+        <activity android:name=".ui.AccEditListActivity"/>
+        <activity android:name=".ui.AccEditActivity"/>
+        <activity android:name=".ui.TypeEditActivity"/>
     </application>
 
 </manifest>

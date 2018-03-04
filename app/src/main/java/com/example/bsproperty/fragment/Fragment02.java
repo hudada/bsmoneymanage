@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,22 +57,56 @@ public class Fragment02 extends BaseFragment {
     TextView tv_now;
     @BindView(R.id.btn_load)
     Button btn_load;
+    @BindView(R.id.rb_00)
+    RadioButton rb_00;
+    @BindView(R.id.rb_01)
+    RadioButton rb_01;
+    @BindView(R.id.rb_02)
+    RadioButton rb_02;
+    @BindView(R.id.rb_03)
+    RadioButton rb_03;
     private NewBeanDaoUtils newDao;
     private TypeBeanDaoUtils typeDao;
     private ArrayList<NewBean> monthAll = new ArrayList<>();
     private Double nowValue = 0.0;
-    protected String[] mParties = new String[]{
-            "给美特买吃的", "给喔特买本本", "吃的", "喝的"
-    };
+    protected ArrayList<BBean> mParties = new ArrayList<>();
+    private int checkFlag = 0;
+
+    public class BBean {
+        private String name;
+        private float point;
+
+        public BBean(String name, float point) {
+            this.name = name;
+            this.point = point;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public float getPoint() {
+            return point;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setPoint(float point) {
+            SimpleDateFormat f = new SimpleDateFormat("0.00");
+            this.point = Float.parseFloat(f.format(point));
+        }
+    }
 
     @Override
     protected void loadData() {
         tvValue.setText(SpUtils.getBudget(mContext) + "");
         getNowValue();
 //        getFlagTypeData(0);
-        getFlagTypeData(1);
-        getTimeData(0);
-        setData();
+        // 默认为rb_00状态
+        rb_00.setChecked(true);
+        setData(checkFlag);
 
     }
 
@@ -139,20 +175,61 @@ public class Fragment02 extends BaseFragment {
         return R.layout.fragment_02;
     }
 
-    private void setData() {
+    private void setData(int flag) {
+        ArrayList<ArrayList<NewBean>> nb = new ArrayList<>();
+        mParties = new ArrayList<>();
+
+        if (flag == 0) {
+            nb = getFlagTypeData(0);
+        } else if (flag == 1) {
+            nb = getFlagTypeData(1);
+        } else if (flag == 2) {
+            nb = getTimeData(0);
+        } else if (flag == 3) {
+            nb = getTimeData(1);
+        }
+        float allCount = 0f;
+        if (flag == 0 || flag == 1) {
+
+            for (ArrayList<NewBean> b : nb) {
+                float count = 0f;
+                for (NewBean n : b) {
+                    allCount += n.getMoney();
+                    count += n.getMoney();
+                }
+                if (b.size() > 0) {
+                    TypeBean tb = typeDao.queryTestById(b.get(0).getTypeId());
+                    mParties.add(new BBean(tb.getType(), count));
+                }
+            }
+        } else {
+            int month = 0;
+            for (ArrayList<NewBean> b : nb) {
+                float count = 0f;
+                month++;
+                for (NewBean n : b) {
+                    allCount += n.getMoney();
+                    count += n.getMoney();
+                }
+                if (b.size() > 0) {
+                    mParties.add(new BBean(month + "月", count));
+                }
+            }
+        }
+
 
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
-
-        entries.add(new PieEntry(35f,
-                mParties[0]));
-        entries.add(new PieEntry(22f,
-                mParties[1]));
-        entries.add(new PieEntry(28f,
-                mParties[2]));
-        entries.add(new PieEntry(15f,
-                mParties[3]));
+        if (mParties.size() == 0) {
+            entries.add(new PieEntry(100f,
+                    "暂无数据"));
+        } else {
+            for (BBean b : mParties) {
+                entries.add(new PieEntry(b.getPoint() / allCount,
+                        b.getName()));
+            }
+        }
 
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setSliceSpace(3f);
@@ -160,12 +237,10 @@ public class Fragment02 extends BaseFragment {
 
         // add a lot of colors
         ArrayList<Integer> colors = new ArrayList<Integer>();
-
-        colors.add(Color.rgb(192, 255, 140));
-        colors.add(Color.rgb(255, 247, 140));
-        colors.add(Color.rgb(255, 208, 140));
-        colors.add(Color.rgb(140, 234, 255));
-
+        Random r = new Random();
+        for (int i = 0; i <= 30; i++) {
+            colors.add(Color.rgb(r.nextInt(100) + 150, r.nextInt(150) + 100, r.nextInt(150) + 100));
+        }
         dataSet.setColors(colors);
         //dataSet.setSelectionShift(0f);
 
@@ -174,14 +249,13 @@ public class Fragment02 extends BaseFragment {
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.BLACK);
         mChart.setData(data);
-
         // undo all highlights
         mChart.highlightValues(null);
 
         mChart.invalidate();
     }
 
-    @OnClick({R.id.tv_value, R.id.btn_load})
+    @OnClick({R.id.tv_value, R.id.btn_load, R.id.rb_00, R.id.rb_01, R.id.rb_02, R.id.rb_03})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_value:
@@ -199,19 +273,49 @@ public class Fragment02 extends BaseFragment {
                                         } else {
                                             Toast.makeText(mContext, "请输入正确的预算金额！", Toast.LENGTH_SHORT).show();
                                         }
+                                        getNowValue();
                                     }
                                 }
                         ).show();
                 break;
+            case R.id.rb_00:
+                checkFlag = 0;
+                rb_00.setChecked(true);
+                rb_01.setChecked(false);
+                rb_02.setChecked(false);
+                rb_03.setChecked(false);
+                break;
+            case R.id.rb_01:
+                checkFlag = 1;
+                rb_00.setChecked(false);
+                rb_01.setChecked(true);
+                rb_02.setChecked(false);
+                rb_03.setChecked(false);
+                break;
+            case R.id.rb_02:
+                checkFlag = 2;
+                rb_00.setChecked(false);
+                rb_01.setChecked(false);
+                rb_02.setChecked(true);
+                rb_03.setChecked(false);
+                break;
+            case R.id.rb_03:
+                checkFlag = 3;
+                rb_00.setChecked(false);
+                rb_01.setChecked(false);
+                rb_02.setChecked(false);
+                rb_03.setChecked(true);
+                break;
             case R.id.btn_load:
-                startActivityForResult(new Intent(mContext, TypeSelectActivity.class), 521);
+                setData(checkFlag);
                 break;
         }
     }
 
+
     public void getNowValue() {
-        nowValue=0.0;
-        monthAll=new ArrayList<>();
+        nowValue = 0.0;
+        monthAll = new ArrayList<>();
         //1号-31号
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR) - 1900;
@@ -239,14 +343,20 @@ public class Fragment02 extends BaseFragment {
                 nowValue += n.getMoney();
             }
         }
+        tv_now.setTextColor(0xFF666666);
         tv_now.setText(nowValue + "");
+        if (nowValue >= SpUtils.getBudget(mContext)) {
+            tv_now.setTextColor(0xFFDE3E2C);
+            tv_now.setText(nowValue + "(已超支)");
+        }
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (newDao != null && typeDao != null) {
+        if (newDao != null && typeDao != null&& tv_now!=null) {
             getNowValue();
+            setData(checkFlag);
         }
     }
 
@@ -282,7 +392,7 @@ public class Fragment02 extends BaseFragment {
     }
 
 
-    public ArrayList<ArrayList<NewBean>>  getTimeData(int flag) {
+    public ArrayList<ArrayList<NewBean>> getTimeData(int flag) {
         List<TypeBean> t = typeDao.queryAll();
         ArrayList<Long> ints = new ArrayList<>();
         List<NewBean> da = newDao.queryAll();
@@ -302,19 +412,19 @@ public class Fragment02 extends BaseFragment {
         }
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR) - 1900;
-        for (int month=0;month<=11;month++){
-            lla=new ArrayList<>();
+        for (int month = 0; month <= 11; month++) {
+            lla = new ArrayList<>();
             Date date1 = new Date(year, month, 1, 0, 0, 0);
-            Date date2 = new Date(year, month+1, 1, 0, 0, 0);
+            Date date2 = new Date(year, month + 1, 1, 0, 0, 0);
             lla = new ArrayList<>();
             for (NewBean n : da2) {
-                if (n.getTime() >= date1.getTime() && n.getTime() <date2.getTime()) {
+                if (n.getTime() >= date1.getTime() && n.getTime() < date2.getTime()) {
                     lla.add(n);
                 }
             }
             datalist.add(lla);
         }
 
-    return  datalist;
+        return datalist;
     }
 }

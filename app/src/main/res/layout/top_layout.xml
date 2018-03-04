@@ -11,7 +11,7 @@
         android:background="@null"
         android:text="返 回"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -29,5 +29,5 @@
         android:layout_alignParentRight="true"
         android:background="@null"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 </RelativeLayout>

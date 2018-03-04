@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/main_bg">
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_layout" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_height="40dp">
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/tv_01"
@@ -16,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/the_space"
-            android:text="当前余额："
+            android:text="账户名称："
             android:textColor="@color/text_3"
             android:textSize="@dimen/text_size03" />
 
@@ -27,29 +29,24 @@
             android:layout_toRightOf="@+id/tv_01"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_now"
+            <EditText
+                android:id="@+id/tv_acc"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/the_space"
-                android:text="1000.00"
-                android:textColor="@color/text_6"
-                android:textSize="@dimen/text_size03" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/the_space"
-                android:text="元"
+                android:background="@null"
+                android:hint="请输入账户名称..."
+                android:maxLength="8"
                 android:textColor="@color/text_6"
                 android:textSize="@dimen/text_size03" />
 
         </LinearLayout>
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_02"
@@ -57,57 +54,39 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/the_space"
-            android:text="账户详情"
+            android:text="余         额："
             android:textColor="@color/text_3"
             android:textSize="@dimen/text_size03" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:gravity="right"
             android:layout_toRightOf="@+id/tv_02"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_moracc"
+            <EditText
+                android:id="@+id/tv_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/the_space"
-                android:text="管理账户>>"
-                android:textColor="@color/blue_bg"
-                android:textSize="@dimen/text_size02" />
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/the_space"
+                android:background="@null"
+                android:hint="0.00"
+                android:inputType="numberDecimal"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/the_space"
+                android:text="元"
+                android:textColor="@color/text_6"
+                android:textSize="@dimen/text_size03" />
         </LinearLayout>
     </RelativeLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/blue_bg"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/sl_list"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        >
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/blue_bg"
-        android:layout_margin="5dp"/>
     <Button
         android:id="@+id/btn_moretype"
         android:layout_width="match_parent"
@@ -117,7 +96,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
         android:background="@color/blue_bg"
-        android:text="收支类型编辑"
+        android:text="删除账户"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size03"
         android:textStyle="bold" />

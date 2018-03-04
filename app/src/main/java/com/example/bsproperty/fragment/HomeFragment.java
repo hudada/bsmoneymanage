@@ -21,8 +21,10 @@ import com.example.bsproperty.bean.NewBean;
 import com.example.bsproperty.bean.TypeBean;
 import com.example.bsproperty.ui.AccSelectActivity;
 import com.example.bsproperty.ui.TypeSelectActivity;
+import com.example.bsproperty.utils.AccBeanDaoUtils;
 import com.example.bsproperty.utils.NewBeanDaoUtils;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,6 +64,7 @@ public class HomeFragment extends BaseFragment {
     private ArrayList<AccBean> accs = new ArrayList<>();
     private TypeBean selectType;
     private AccBean selectAcc;
+    boolean flag = true;
 
 
     @Override
@@ -73,6 +76,7 @@ public class HomeFragment extends BaseFragment {
         tvDate.setText(time[0]);
         tvTime.setText(time[1]);
         if (outtypes.size() > 0) {
+            flag = true;
             tvType.setText("支出-" + outtypes.get(0).getType());
             //收入颜色 0xFFDE3E2C
             tvType.setTextColor(0xFF68CF6A);
@@ -161,7 +165,8 @@ public class HomeFragment extends BaseFragment {
                 NewBean newBean = new NewBean();
                 newBean.setAccId(Long.parseLong(selectAcc.getId().toString()));
                 newBean.setAddress(tvAddress.getText().toString());
-                newBean.setMoney(Double.parseDouble(tvValue.getText().toString()));
+                DecimalFormat fd=new DecimalFormat("00.00");
+                newBean.setMoney(Double.parseDouble(fd.format(Double.parseDouble(tvValue.getText().toString()))));
                 newBean.setTypeId(Long.parseLong(selectType.getId().toString()));
                 String time = tvDate.getText().toString() + " " + tvTime.getText().toString();
                 Log.e("test", time);
@@ -173,13 +178,26 @@ public class HomeFragment extends BaseFragment {
                 }
                 newBean.setTime(d.getTime());
                 NewBeanDaoUtils newDao = new NewBeanDaoUtils(mContext);
+                AccBeanDaoUtils accDao = new AccBeanDaoUtils(mContext);
                 boolean suc = newDao.insert(newBean);
                 if (suc) {
-                    tvAddress.setText("");
-                    tvValue.setText("");
-                    Toast.makeText(mContext, "添加成功！", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(mContext, "添加失败，请重试！", Toast.LENGTH_SHORT).show();
+                    AccBean acc = accDao.queryTestById(newBean.getAccId());
+                    if (flag) {
+                        acc.setMoney(acc.getMoney() - newBean.getMoney());
+                    } else {
+                        acc.setMoney(acc.getMoney() + newBean.getMoney());
+                    }
+                    boolean suc2 = accDao.updateTest(acc);
+                    if (suc2) {
+                        tvAddress.setText("");
+                        tvValue.setText("");
+                        String[] time2 = format.format(new Date()).split(" ");
+                        tvDate.setText(time2[0]);
+                        tvTime.setText(time2[1]);
+                        Toast.makeText(mContext, "添加成功！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mContext, "添加失败，请重试！", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
             case R.id.tv_tozhi:
@@ -193,7 +211,7 @@ public class HomeFragment extends BaseFragment {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 521:
-                    boolean flag = data.getBooleanExtra("flag", false);
+                    flag = data.getBooleanExtra("flag", false);
                     int pos = data.getIntExtra("pos", 0);
                     if (flag) {
                         tvType.setText("支出-" + outtypes.get(pos).getType());
@@ -212,5 +230,11 @@ public class HomeFragment extends BaseFragment {
                     break;
             }
         }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        MyApplication.getInstance().getTypeList();
     }
 }
