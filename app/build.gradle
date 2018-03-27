@@ -43,4 +43,5 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     compile 'org.greenrobot:greendao:3.2.2' // add library
     compile 'com.lovedise:permissiongen:0.0.6'
+    compile 'com.thoughtworks.xstream:xstream:1.4.7'
 }

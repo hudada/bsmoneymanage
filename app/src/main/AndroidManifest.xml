@@ -3,8 +3,10 @@
     package="com.example.bsproperty">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -23,11 +25,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.TypeSelectActivity" />
-        <activity android:name=".ui.AccSelectActivity"/>
-        <activity android:name=".ui.TypeEditListActivity"/>
-        <activity android:name=".ui.AccEditListActivity"/>
-        <activity android:name=".ui.AccEditActivity"/>
-        <activity android:name=".ui.TypeEditActivity"/>
+        <activity android:name=".ui.AccSelectActivity" />
+        <activity android:name=".ui.TypeEditListActivity" />
+        <activity android:name=".ui.AccEditListActivity" />
+        <activity android:name=".ui.AccEditActivity" />
+        <activity android:name=".ui.TypeEditActivity" />
+        <activity android:name=".ui.XMLInOutActivity"></activity>
     </application>
 
 </manifest>

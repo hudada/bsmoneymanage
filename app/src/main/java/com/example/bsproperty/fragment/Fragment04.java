@@ -21,6 +21,7 @@ import com.example.bsproperty.ui.TypeEditListActivity;
 import com.example.bsproperty.ui.TypeSelectActivity;
 import com.example.bsproperty.utils.AccBeanDaoUtils;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +50,13 @@ public class Fragment04 extends BaseFragment {
     private AccBeanDaoUtils accDao;
     List<AccBean> accs = new ArrayList<>();
     private Fragment04.MyAdapter adapter;
+    private boolean isInit=false;
     @Override
     protected void loadData() {
         accs = accDao.queryAll();
         getNowValue();
         setData();
+        isInit=true;
     }
 
     private void setData() {
@@ -102,11 +105,22 @@ public class Fragment04 extends BaseFragment {
     }
 
     public void getNowValue() {
-        double allCount=0.0;
+        double allCount04=0.0;
         for (AccBean a:accs) {
-            allCount+=a.getMoney();
+            allCount04+=a.getMoney();
         }
-        tvNow.setText(allCount+"");
+        DecimalFormat df=new DecimalFormat("0.00");
+        tvNow.setText(df.format(allCount04));
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isInit&&tvNow!=null){
+            accs = accDao.queryAll();
+            getNowValue();
+            setData();
+        }
     }
 
     private class MyAdapter extends BaseAdapter<AccBean> {

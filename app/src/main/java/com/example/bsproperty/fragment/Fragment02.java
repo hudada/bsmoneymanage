@@ -71,6 +71,7 @@ public class Fragment02 extends BaseFragment {
     private Double nowValue = 0.0;
     protected ArrayList<BBean> mParties = new ArrayList<>();
     private int checkFlag = 0;
+    private boolean isinit=false;
 
     public class BBean {
         private String name;
@@ -107,6 +108,7 @@ public class Fragment02 extends BaseFragment {
         // 默认为rb_00状态
         rb_00.setChecked(true);
         setData(checkFlag);
+        isinit=true;
 
     }
 
@@ -345,7 +347,7 @@ public class Fragment02 extends BaseFragment {
         }
         tv_now.setTextColor(0xFF666666);
         tv_now.setText(nowValue + "");
-        if (nowValue >= SpUtils.getBudget(mContext)) {
+        if (nowValue > SpUtils.getBudget(mContext)) {
             tv_now.setTextColor(0xFFDE3E2C);
             tv_now.setText(nowValue + "(已超支)");
         }
@@ -354,10 +356,11 @@ public class Fragment02 extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (isinit){
         if (newDao != null && typeDao != null&& tv_now!=null) {
             getNowValue();
             setData(checkFlag);
-        }
+        }}
     }
 
     public ArrayList<ArrayList<NewBean>> getFlagTypeData(int flag) {

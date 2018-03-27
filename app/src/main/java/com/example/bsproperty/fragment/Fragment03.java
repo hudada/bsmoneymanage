@@ -1,11 +1,15 @@
 package com.example.bsproperty.fragment;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,10 +31,15 @@ import com.example.bsproperty.bean.AccBean;
 import com.example.bsproperty.bean.NewBean;
 import com.example.bsproperty.bean.TypeBean;
 import com.example.bsproperty.ui.TypeSelectActivity;
+import com.example.bsproperty.ui.XMLInOutActivity;
 import com.example.bsproperty.utils.AccBeanDaoUtils;
 import com.example.bsproperty.utils.NewBeanDaoUtils;
 import com.example.bsproperty.utils.TypeBeanDaoUtils;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,6 +74,8 @@ public class Fragment03 extends BaseFragment {
     TextView tvType;
     @BindView(R.id.tv_typemore)
     TextView getTypemore;
+    @BindView(R.id.tv_outin)
+    TextView tv_outin;
     @BindView(R.id.btn_add)
     Button btnAdd;
     @BindView(R.id.rv_list)
@@ -82,16 +93,16 @@ public class Fragment03 extends BaseFragment {
     private  TypeBeanDaoUtils typeBeanDaoUtils;
     private  AccBeanDaoUtils accBeanDaoUtils ;
 
-    public class NewList {
+    public static class NewList {
         private String type;
         private String acc;
         private String addrr;
         private int flag;
         private String money;
-        private Long time;
+        private String time;
         private Long id;
 
-        public NewList(long id,String type, String acc, String addrr, int flag, String money, Long time) {
+        public NewList(long id,String type, String acc, String addrr, int flag, String money, String time) {
             this.id=id;
             this.type = type;
             this.acc = acc;
@@ -142,11 +153,10 @@ public class Fragment03 extends BaseFragment {
         }
 
         public String getTime() {
-            SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            return fo.format(new Date(time));
+            return time;
         }
 
-        public void setTime(Long time) {
+        public void setTime(String time) {
             this.time = time;
         }
 
@@ -184,8 +194,33 @@ public class Fragment03 extends BaseFragment {
         return R.layout.fragment_03;
     }
 
+    public static class XmlBean{
+        private String Generation_Time;
+        private List<NewList> DataLists;
 
-    @OnClick({R.id.rb_time_01, R.id.rb_time_02, R.id.tv_date01, R.id.tv_date02, R.id.tv_typemore, R.id.btn_add})
+        public String GetGeneration_Time() {
+            return Generation_Time;
+        }
+
+        public void setGeneration_time(String generation_time) {
+            this.Generation_Time = generation_time;
+        }
+
+        public List<NewList> getNewLists() {
+            return DataLists;
+        }
+
+        public void setNewLists(List<NewList> dataLists) {
+            this.DataLists = dataLists;
+        }
+
+        public XmlBean(String generation_time, List<NewList> dataLists) {
+            this.Generation_Time = generation_time;
+            this.DataLists = dataLists;
+        }
+    }
+
+    @OnClick({R.id.rb_time_01, R.id.rb_time_02, R.id.tv_date01, R.id.tv_date02, R.id.tv_outin, R.id.tv_typemore, R.id.btn_add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rb_time_01:
@@ -193,6 +228,20 @@ public class Fragment03 extends BaseFragment {
                 break;
             case R.id.rb_time_02:
                 ln_02.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_outin:
+                if (mData.size()>0){
+                    XmlBean xmlBean=new XmlBean(format.format(new Date()),mData);
+                    XStream xs=new XStream();
+                    xs.alias("Data",XmlBean.class);
+                    xs.alias("item",NewList.class);
+                    String s = xs.toXML(xmlBean);
+                    Intent intent=new Intent(mContext, XMLInOutActivity.class);
+                    intent.putExtra("xml",s);
+                    startActivityForResult(intent, 333);
+                }else{
+                    Toast.makeText(mContext, "无结果被导出！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.tv_date01:
                 final Calendar c = Calendar.getInstance();
@@ -301,7 +350,12 @@ public class Fragment03 extends BaseFragment {
                         selectType = intypes.get(pos);
                     }
                     break;
+                case 333:
+                    getData();
+                    adapter.notifyDataSetChanged(mData);
+                    break;
             }
+
         } else if (resultCode == RESULT_CANCELED) {
             switch (requestCode) {
                 case 521:
@@ -315,6 +369,7 @@ public class Fragment03 extends BaseFragment {
     }
 
     public void getData() {
+        SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         mData = new ArrayList<>();
         List<NewBean> mbs = new ArrayList<>();
         if (rbTime01.isChecked() && selectType == null) {
@@ -327,7 +382,7 @@ public class Fragment03 extends BaseFragment {
                         accBean.getAccount(),
                         nbs.getAddress(),
                         type.getFlag(),
-                        "" + nbs.getMoney(), nbs.getTime());
+                        "" + nbs.getMoney(), fo.format(nbs.getTime()));
                 mData.add(nl);
             }
 
@@ -340,7 +395,7 @@ public class Fragment03 extends BaseFragment {
                         accBean.getAccount(),
                         nbs.getAddress(),
                         selectType.getFlag(),
-                        "" + nbs.getMoney(), nbs.getTime());
+                        "" + nbs.getMoney(), fo.format(nbs.getTime()));
                 mData.add(nl);
             }
 
@@ -359,7 +414,7 @@ public class Fragment03 extends BaseFragment {
                         accBean.getAccount(),
                         nbs.getAddress(),
                         type.getFlag(),
-                        "" + nbs.getMoney(), nbs.getTime());
+                        "" + nbs.getMoney(), fo.format(nbs.getTime()));
                 mData.add(nl);
             }
         } else if (!rbTime01.isChecked() && selectType != null) {
@@ -376,7 +431,7 @@ public class Fragment03 extends BaseFragment {
                         accBean.getAccount(),
                         nbs.getAddress(),
                         selectType.getFlag(),
-                        "" + nbs.getMoney(), nbs.getTime());
+                        "" + nbs.getMoney(), fo.format(nbs.getTime()));
                 mData.add(nl);
             }
         }

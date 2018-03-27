@@ -51,6 +51,7 @@ public class TypeSelectActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         MyApplication.getInstance().getTypeList();
+        MyApplication.getInstance().getTypeList();
         tvTitle.setText("选择收支类型");
         flag=true;
         rb01.setChecked(true);

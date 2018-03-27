@@ -21,6 +21,7 @@ import com.example.bsproperty.bean.NewBean;
 import com.example.bsproperty.bean.TypeBean;
 import com.example.bsproperty.ui.AccSelectActivity;
 import com.example.bsproperty.ui.TypeSelectActivity;
+import com.example.bsproperty.ui.XMLInOutActivity;
 import com.example.bsproperty.utils.AccBeanDaoUtils;
 import com.example.bsproperty.utils.NewBeanDaoUtils;
 
@@ -201,7 +202,7 @@ public class HomeFragment extends BaseFragment {
                 }
                 break;
             case R.id.tv_tozhi:
-                //TODO 支付宝同步
+                startActivityForResult(new Intent(mContext, XMLInOutActivity.class), 333);
                 break;
         }
     }

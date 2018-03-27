@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_layout" />
+
+    <TextView
+        android:id="@+id/tv_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/the_space"
+        android:text="导出/导入的XML内容："
+        android:layout_marginTop="@dimen/the_space"
+        android:textColor="@color/text_3"
+        android:textSize="@dimen/text_size03" />
+
+
+    <EditText
+        android:id="@+id/tv_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/the_space"
+        android:gravity="left"
+        android:background="@null"
+        android:hint="在这里粘贴需要导入的xml..."
+        android:textColor="@color/text_6"
+        android:textSize="@dimen/text_size03" />
+
+
+</LinearLayout>

@@ -79,19 +79,16 @@ public class MyApplication extends Application {
     }
 
     public void initData() {
+        // 监听的电话
         numList.add("106575170001");
         numList.add("106980095188");
-        numList.add("+8618782918171");
+        numList.add("123456");
         if (SpUtils.getIsFirst(this)) {
             TypeBeanDaoUtils typeDao = new TypeBeanDaoUtils(this);
             TypeBean t1 = new TypeBean();
             t1.setFlag(0);
             t1.setType("吃饭");
             typeDao.insert(t1);
-            TypeBean t2 = new TypeBean();
-            t2.setFlag(0);
-            t2.setType("看电影");
-            typeDao.insert(t2);
             TypeBean t3 = new TypeBean();
             t3.setFlag(0);
             t3.setType("买东西");
@@ -100,10 +97,6 @@ public class MyApplication extends Application {
             t4.setFlag(1);
             t4.setType("零花钱");
             typeDao.insert(t4);
-            TypeBean t5 = new TypeBean();
-            t5.setFlag(1);
-            t5.setType("红包");
-            typeDao.insert(t5);
             TypeBean t6 = new TypeBean();
             t6.setFlag(1);
             t6.setType("兼职");

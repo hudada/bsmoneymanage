@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/the_space"
-                android:text="1000.00"
+                android:text="0.00"
                 android:textColor="@color/text_6"
                 android:textSize="@dimen/text_size03" />
 
